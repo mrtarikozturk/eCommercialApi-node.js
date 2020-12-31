@@ -61,8 +61,16 @@ exports.getAdmin = async (req, res) => {
 }
 
 exports.updateAdmin = async (req, res) => {
+    try {
+        // validation
+        const validationErr = validationResult(req);
+        checkFunction(res, validationErr?.errors?.length > 0, validationErr.array());
 
-
+        const admin = await Admin.findByIdAndUpdate(req.body.id, req.body, { new: true, runValidators: true });
+        sendData(res, admin);
+    } catch (err) {
+        checkFunction(res, err, err.message);
+    }
 }
 
 exports.deleteAdmin = async (req, res) => {
