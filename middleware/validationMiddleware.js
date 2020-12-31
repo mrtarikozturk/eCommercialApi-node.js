@@ -23,10 +23,11 @@ exports.loginValidation = [
 ]
 
 exports.addAdminValidation = [
+    check('firstName', 'Please enter a valid first name').isLength({ min: 3, max: 40 }),
     check('email', 'Please enter a valid e-mail').isEmail(),
-    check('fistName', 'Please enter a valid first name').isLength({ min: 2, max: 40 }),
     check('lastName', 'Please enter a valid last name').isLength({ min: 2, max: 40 }),
 ]
+
 
 
 
