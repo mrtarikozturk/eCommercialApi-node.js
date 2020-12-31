@@ -51,8 +51,13 @@ exports.addAdmin = async (req, res) => {
 }
 
 exports.getAdmin = async (req, res) => {
-
-
+    try {
+        const admin = await Admin.findById(req.params.id).select('-password');
+        sendData(res, admin);
+    }
+    catch (err) {
+        checkFunction(res, err, err.message);
+    }
 }
 
 exports.updateAdmin = async (req, res) => {
