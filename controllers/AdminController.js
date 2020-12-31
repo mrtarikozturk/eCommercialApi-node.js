@@ -51,7 +51,7 @@ exports.addAdmin = async (req, res) => {
 }
 
 exports.getAdmin = async (req, res) => {
-   
+
 
 }
 
@@ -76,5 +76,18 @@ exports.getAdmins = async (req, res) => {
 }
 
 exports.verifyAdmin = async (req, res) => {
-  
+    try {
+        const user = await Admin.findByIdAndUpdate(
+            req.decodedData.admin._id,
+            { isActive: true },
+            {
+                new: true,
+                runValidators: true,
+            }
+        ).select('-password');
+        sendData(res, user);
+    }
+    catch (err) {
+        checkFunction(res, err, err.message);
+    }
 }
